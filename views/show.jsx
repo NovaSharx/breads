@@ -1,8 +1,8 @@
 const React = require('react')
+const breads = require('../controllers/breads_controller')
 const Default = require('./layouts/Default')
 
 function Show({bread, index}) {
-    console.log(bread.name)
     return (
         <Default>
             <h2>Show Page</h2>

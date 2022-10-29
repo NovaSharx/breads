@@ -28,12 +28,12 @@ function New() {
                     defaultChecked
                 />
                 <br />
-                <input type="submit"/>
+                <input type="submit" />
             </form>
 
             <div className='backButton'>
                 <a href="/breads"> <button>Go back to the index</button> </a>
-                </div>
+            </div>
         </Default>
     )
 }
