@@ -20,6 +20,9 @@ function Index({breads, title}) {
             <div className='newButton'>
                 <a href="/breads/new"> <button>Add a new bread</button> </a>
             </div>
+            <div className='newButton'>
+                <a href="/breads/data/seed"> <button>Add a sample breads</button> </a>
+            </div>
         </Default>
     )
 }
