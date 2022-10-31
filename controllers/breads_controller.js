@@ -86,7 +86,11 @@ breads.post('/', (req, res) => {
         req.body.hasGlutern = false
     }
     Bread.create(req.body)
-    res.redirect('/breads')
+    .then(res.redirect('/breads'))
+    .catch(err => {
+        console.log(err)
+        res.redirect('error404')
+    })
 })
 
 module.exports = breads

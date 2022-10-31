@@ -2,7 +2,7 @@ const React = require('react')
 const breads = require('../controllers/breads_controller')
 const Default = require('./layouts/Default')
 
-function Show({bread}) {
+function Show({ bread }) {
     return (
         <Default>
             <h2>Show Page</h2>
@@ -11,12 +11,13 @@ function Show({bread}) {
                 and it
                 {
                     bread.hasGluten
-                    ? <span> does </span>
-                    : <span> does NOT </span>
+                        ? <span> does </span>
+                        : <span> does NOT </span>
                 }
                 have gluten.
             </p>
             <img src={bread.image} alt={bread.name} />
+            <p>Baked by {bread.baker} </p>
 
             <a href={`/breads/${bread.id}/edit`}> <button>Edit</button> </a>
 
