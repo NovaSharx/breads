@@ -33,9 +33,13 @@ breads.get('/data/seed', (req, res) => {
 breads.get('/:id', (req, res) => {
     Bread.findById(req.params.id)
         .then(foundBread => {
-            res.render('show', {
-                bread: foundBread
-            })
+            Bread.getBreadsByBaker(foundBread.baker)
+                .then(breadsByBaker => {
+                    res.render('show', {
+                        bread: foundBread,
+                        breadsByBakerArray: breadsByBaker
+                    })
+                })
         })
         .catch(err => {
             console.log(err)
