@@ -38,9 +38,11 @@ breads.get('/:id', (req, res) => {
             })
         })
         .catch(err => {
+            console.log(err)
             res.render('error404')
         })
 })
+
 
 //EDIT
 breads.get('/:id/edit', (req, res) => {
@@ -59,10 +61,14 @@ breads.put('/:id', (req, res) => {
     } else {
         req.body.hasGluten = false
     }
-    Bread.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    Bread.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
         .then(updatedBread => {
             console.log(updatedBread)
             res.redirect(`/breads/${req.params.id}`)
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect('error404')
         })
 })
 
@@ -86,11 +92,11 @@ breads.post('/', (req, res) => {
         req.body.hasGlutern = false
     }
     Bread.create(req.body)
-    .then(res.redirect('/breads'))
-    .catch(err => {
-        console.log(err)
-        res.redirect('error404')
-    })
+        .then(res.redirect('/breads'))
+        .catch(err => {
+            console.log(err)
+            res.redirect('error404')
+        })
 })
 
 module.exports = breads
