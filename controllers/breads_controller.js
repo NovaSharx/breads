@@ -2,6 +2,7 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 const SampleBreads = require('../models/samplebreads.js')
+const Baker = require('../models/baker.js')
 
 // INDEX
 breads.get('/', (req, res) => {
@@ -18,7 +19,12 @@ breads.get('/', (req, res) => {
 
 // NEW
 breads.get('/new', (req, res) => {
-    res.render('new')
+    Baker.find()
+    .then(foundBakers => {
+        res.render('new', {
+            bakers: foundBakers
+        })
+    })
 })
 
 // MULTIPLE NEW
@@ -96,10 +102,12 @@ breads.post('/', (req, res) => {
         req.body.hasGlutern = false
     }
     Bread.create(req.body)
-        .then(res.redirect('/breads'))
+        .then(() => {
+            res.redirect('/breads')
+        })
         .catch(err => {
             console.log(err)
-            res.redirect('error404')
+            res.redirect('/breads/error404')
         })
 })
 
