@@ -7,6 +7,7 @@ const Baker = require('../models/baker.js')
 // INDEX
 breads.get('/', (req, res) => {
     Bread.find()
+    .populate('baker')
         .then(foundBreads => {
             res.render('index',
                 {
@@ -20,11 +21,11 @@ breads.get('/', (req, res) => {
 // NEW
 breads.get('/new', (req, res) => {
     Baker.find()
-    .then(foundBakers => {
-        res.render('new', {
-            bakers: foundBakers
+        .then(foundBakers => {
+            res.render('new', {
+                bakers: foundBakers
+            })
         })
-    })
 })
 
 // MULTIPLE NEW
@@ -38,9 +39,11 @@ breads.get('/data/seed', (req, res) => {
 // SHOW
 breads.get('/:id', (req, res) => {
     Bread.findById(req.params.id)
+        .populate('baker')
         .then(foundBread => {
             Bread.getBreadsByBaker(foundBread.baker)
                 .then(breadsByBaker => {
+                    console.log(breadsByBaker)
                     res.render('show', {
                         bread: foundBread,
                         breadsByBakerArray: breadsByBaker
@@ -56,12 +59,16 @@ breads.get('/:id', (req, res) => {
 
 //EDIT
 breads.get('/:id/edit', (req, res) => {
-    Bread.findById(req.params.id)
+    Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
         .then(foundBread => {
             res.render('edit', {
-                bread: foundBread
+                bread: foundBread,
+                bakers: foundBakers
             })
         })
+    })
 })
 
 //UPDATE
@@ -107,7 +114,7 @@ breads.post('/', (req, res) => {
         })
         .catch(err => {
             console.log(err)
-            res.redirect('/breads/error404')
+            res.render('error404')
         })
 })
 

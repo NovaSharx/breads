@@ -28,7 +28,7 @@ function Show({ bread, breadsByBakerArray }) {
             <img src={bread.image} alt={bread.name} />
             <p>{bread.getBakedBy()}</p>
             <div>
-                Other breads By {bread.baker}:
+                Other breads By {bread.baker.name}:
                 
                 <ul>
                     {otherBreads}
