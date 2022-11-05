@@ -5,21 +5,18 @@ const SampleBreads = require('../models/samplebreads.js')
 const Baker = require('../models/baker.js')
 
 // INDEX
-breads.get('/', (req, res) => {
-    Baker.find()
-        .then(foundBakers => {
-            Bread.find()
-                .populate('baker')
-                .then(foundBreads => {
-                    res.render('index',
-                        {
-                            breads: foundBreads,
-                            bakers: foundBakers,
-                            title: 'Index Page'
-                        }
-                    )
-                })
-        })
+breads.get('/', async (req, res) => {
+    // Refactored to use async/await
+    const foundBakers = await Baker.find().lean()
+    const foundBreads = await Bread.find().populate('baker').limit(2).lean()
+
+    res.render('index',
+        {
+            breads: foundBreads,
+            bakers: foundBakers,
+            title: 'Index Page'
+        }
+    )
 })
 
 // NEW
