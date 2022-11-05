@@ -7,8 +7,8 @@ const Baker = require('../models/baker.js')
 // INDEX
 breads.get('/', async (req, res) => {
     // Refactored to use async/await
-    const foundBakers = await Baker.find().lean()
-    const foundBreads = await Bread.find().populate('baker').limit(2).lean()
+    const foundBakers = await Baker.find()
+    const foundBreads = await Bread.find().populate('baker')
 
     res.render('index',
         {
