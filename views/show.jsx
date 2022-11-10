@@ -1,18 +1,17 @@
 const React = require('react')
-const breads = require('../controllers/breads_controller')
-const Default = require('./layouts/Default')
+const Default = require('./layouts/default')
 
 function Show({ bread, breadsByBakerArray }) {
     let otherBreads = breadsByBakerArray.map(breadByBaker => {
         return (
-        <li>
-            {breadByBaker.name}
-        </li>
-    )
+            <li>
+                {breadByBaker.name}
+            </li>
+        )
     })
 
     return (
-  
+
         <Default>
             <h2>Show Page</h2>
             <h3>{bread.name}</h3>
@@ -29,7 +28,7 @@ function Show({ bread, breadsByBakerArray }) {
             <p>{bread.getBakedBy()}</p>
             <div>
                 Other breads By {bread.baker.name}:
-                
+
                 <ul>
                     {otherBreads}
                 </ul>
